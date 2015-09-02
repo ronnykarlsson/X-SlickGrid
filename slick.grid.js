@@ -3714,6 +3714,47 @@ if (typeof Slick === "undefined") {
       }
     }
 
+	function scrollCellToLeftBorder(row, cell, doPaging) {
+      // Don't scroll to frozen cells
+      if (cell <= options.frozenColumn) {
+        return;
+      }
+
+      if (row < actualFrozenRow) {
+        scrollRowIntoView(row, doPaging);
+      }
+
+      var left = columnPosLeft[cell];
+
+      if (scrollLeft != left) {
+        $viewportScrollContainerX.scrollLeft(left);
+        handleScroll();
+        render();
+      }
+    }
+
+    function scrollCellToRightBorder(row, cell, doPaging) {
+      // Don't scroll to frozen cells
+      if (cell <= options.frozenColumn) {
+        return;
+      }
+
+      if (row < actualFrozenRow) {
+        scrollRowIntoView(row, doPaging);
+      }
+
+      var colspan = getColspan(row, cell);
+      var left = columnPosLeft[cell],
+        right = columnPosRight[cell + (colspan > 1 ? colspan - 1 : 0)],
+        scrollRight = scrollLeft + $viewportScrollContainerX.width();
+
+      if (scrollRight != right) {
+        $viewportScrollContainerX.scrollLeft(Math.min(left, right - $viewportScrollContainerX[0].clientWidth));
+        handleScroll();
+        render();
+      }
+    }
+	
     function setActiveCellInternal(newCell, opt_editMode) {
       if (activeCellNode !== null) {
         makeActiveCellNormal();
@@ -4658,6 +4699,8 @@ if (typeof Slick === "undefined") {
       "scrollRowIntoView": scrollRowIntoView,
       "scrollRowToTop": scrollRowToTop,
       "scrollCellIntoView": scrollCellIntoView,
+      "scrollCellToLeftBorder": scrollCellToLeftBorder,
+      "scrollCellToRightBorder": scrollCellToRightBorder,
       "getCanvasNode": getCanvasNode,
       "getCanvases": getCanvases,
       "getActiveCanvasNode": getActiveCanvasNode,
