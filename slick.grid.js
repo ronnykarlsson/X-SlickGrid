@@ -3649,17 +3649,13 @@ if (typeof Slick === "undefined") {
       }
     }
 
-	function scrollCellToLeftBorder(row, cell, doPaging) {
-      // Don't scroll to frozen cells
-      if (cell <= options.frozenColumn) {
+	function scrollColumnToLeftBorder(column, doPaging) {
+      // Don't scroll to frozen columns
+      if (column <= options.frozenColumn) {
         return;
       }
 
-      if (row < actualFrozenRow) {
-        scrollRowIntoView(row, doPaging);
-      }
-
-      var left = columnPosLeft[cell];
+      var left = columnPosLeft[column];
 
       if (scrollLeft != left) {
         $viewportScrollContainerX.scrollLeft(left);
@@ -3668,19 +3664,15 @@ if (typeof Slick === "undefined") {
       }
     }
 
-    function scrollCellToRightBorder(row, cell, doPaging) {
+    function scrollColumnToRightBorder(column, doPaging) {
       // Don't scroll to frozen cells
-      if (cell <= options.frozenColumn) {
+      if (column <= options.frozenColumn) {
         return;
       }
 
-      if (row < actualFrozenRow) {
-        scrollRowIntoView(row, doPaging);
-      }
-
-      var colspan = getColspan(row, cell);
-      var left = columnPosLeft[cell],
-        right = columnPosRight[cell + (colspan > 1 ? colspan - 1 : 0)],
+      var colspan = getColspan(0, column);
+      var left = columnPosLeft[column],
+        right = columnPosRight[column + (colspan > 1 ? colspan - 1 : 0)],
         scrollRight = scrollLeft + $viewportScrollContainerX.width();
 
       if (scrollRight != right) {
@@ -4633,8 +4625,8 @@ if (typeof Slick === "undefined") {
       "scrollRowIntoView": scrollRowIntoView,
       "scrollRowToTop": scrollRowToTop,
       "scrollCellIntoView": scrollCellIntoView,
-      "scrollCellToLeftBorder": scrollCellToLeftBorder,
-      "scrollCellToRightBorder": scrollCellToRightBorder,
+      "scrollColumnToLeftBorder": scrollColumnToLeftBorder,
+      "scrollColumnToRightBorder": scrollColumnToRightBorder,
       "getCanvasNode": getCanvasNode,
       "getCanvases": getCanvases,
       "getActiveCanvasNode": getActiveCanvasNode,
