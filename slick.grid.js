@@ -3735,24 +3735,6 @@ if (typeof Slick === "undefined") {
         render();
       }
     }
-
-    function scrollColumnToRightBorder(column, doPaging) {
-      // Don't scroll to frozen cells
-      if (column <= options.frozenColumn) {
-        return;
-      }
-
-      var colspan = getColspan(0, column);
-      var left = columnPosLeft[column],
-        right = columnPosRight[column + (colspan > 1 ? colspan - 1 : 0)],
-        scrollRight = scrollLeft + $viewportScrollContainerX.width();
-
-      if (scrollRight != right) {
-        $viewportScrollContainerX.scrollLeft(Math.min(left, right - $viewportScrollContainerX[0].clientWidth));
-        handleScroll();
-        render();
-      }
-    }
 	
     function setActiveCellInternal(newCell, opt_editMode) {
       if (activeCellNode !== null) {
@@ -4699,7 +4681,6 @@ if (typeof Slick === "undefined") {
       "scrollRowToTop": scrollRowToTop,
       "scrollCellIntoView": scrollCellIntoView,
       "scrollColumnToLeftBorder": scrollColumnToLeftBorder,
-      "scrollColumnToRightBorder": scrollColumnToRightBorder,
       "getCanvasNode": getCanvasNode,
       "getCanvases": getCanvases,
       "getActiveCanvasNode": getActiveCanvasNode,
