@@ -63,6 +63,7 @@ if (typeof Slick === "undefined") {
       leaveSpaceForNewRows: false,
       editable: false,
       autoEdit: true,
+      tabEdit: false,
       enableCellNavigation: true,
       enableColumnReorder: true,
       asyncEditorLoading: false,
@@ -4318,9 +4319,14 @@ if (typeof Slick === "undefined") {
         return false;
       }
 
-      if (!getEditorLock().commitCurrentEdit()) {
-        return true;
+      var editNextCell = false;
+      if (getEditorLock().isActive()) {
+        if (!getEditorLock().commitCurrentEdit()) {
+          return true;
+        }
+        if (options.tabEdit) editNextCell = true;
       }
+	  
       setFocus();
 
       var tabbingDirections = {
@@ -4356,11 +4362,11 @@ if (typeof Slick === "undefined") {
           scrollCellIntoView(pos.row, pos.cell, !isAddNewRow);
         }
 
-        setActiveCellInternal(getCellNode(pos.row, pos.cell))
+        setActiveCellInternal(getCellNode(pos.row, pos.cell), editNextCell)
         activePosX = pos.posX;
         return true;
       } else {
-        setActiveCellInternal(getCellNode(activeRow, activeCell));
+        setActiveCellInternal(getCellNode(activeRow, activeCell), editNextCell);
         return false;
       }
     }
