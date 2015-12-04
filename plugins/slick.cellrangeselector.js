@@ -101,8 +101,8 @@
       if ((!_grid.canCellBeSelected(end.row, end.cell) )
         || ( !_isRightCanvas && ( end.cell > _gridOptions.frozenColumn ) )
         || ( _isRightCanvas && ( end.cell <= _gridOptions.frozenColumn ) )
-        || ( !_isBottomCanvas && ( end.row >= _gridOptions.frozenRow ) )
-        || ( _isBottomCanvas && ( end.row < _gridOptions.frozenRow ) )
+        || ( _gridOptions.frozenRow > -1 && !_isBottomCanvas && ( end.row >= _gridOptions.frozenRow ) )
+        || ( _gridOptions.frozenRow > -1 && _isBottomCanvas && ( end.row < _gridOptions.frozenRow ) )
         ) {
         return;
       }
