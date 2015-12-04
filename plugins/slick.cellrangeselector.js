@@ -107,6 +107,8 @@
         return;
       }
 
+	  _grid.scrollCellIntoView(end.row, end.cell);
+	  
       dd.range.end = end;
 
       _decorator.show(new Slick.Range(dd.range.start.row, dd.range.start.cell, end.row, end.cell));
