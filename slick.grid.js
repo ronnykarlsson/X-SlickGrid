@@ -4704,6 +4704,7 @@ if (typeof Slick === "undefined") {
       "getActiveCellPosition": getActiveCellPosition,
       "resetActiveCell": resetActiveCell,
       "editActiveCell": makeActiveCellEditable,
+	  "getEditor": getEditor,
       "getCellEditor": getCellEditor,
       "getCellNode": getCellNode,
       "getCellNodeBox": getCellNodeBox,
