@@ -2272,7 +2272,7 @@ if (typeof Slick === "undefined") {
         return columnMetadata[cell].editor;
       }
 
-      return column.editor || (options.editorFactory && options.editorFactory.getEditor(column));
+      return column.editor || (options.editorFactory && options.editorFactory.getEditor(column, getDataItem(row)));
     }
 
     function getDataItemValueForColumn(item, columnDef) {
