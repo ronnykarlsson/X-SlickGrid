@@ -4334,12 +4334,12 @@ if (typeof Slick === "undefined") {
         return false;
       }
 
-      var editNextCell = false;
+      var opt_editMode = null;
       if (getEditorLock().isActive()) {
         if (!getEditorLock().commitCurrentEdit()) {
           return true;
         }
-        if (options.tabEdit) editNextCell = true;
+        if (options.tabEdit) opt_editMode = true;
       }
 	  
       setFocus();
@@ -4377,11 +4377,11 @@ if (typeof Slick === "undefined") {
           scrollCellIntoView(pos.row, pos.cell, !isAddNewRow);
         }
 
-        setActiveCellInternal(getCellNode(pos.row, pos.cell), editNextCell)
+        setActiveCellInternal(getCellNode(pos.row, pos.cell), opt_editMode);
         activePosX = pos.posX;
         return true;
       } else {
-        setActiveCellInternal(getCellNode(activeRow, activeCell), editNextCell);
+        setActiveCellInternal(getCellNode(activeRow, activeCell), opt_editMode);
         return false;
       }
     }
